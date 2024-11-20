@@ -7,7 +7,6 @@ function App() {
     <div>
       <Navbar />
       <Hero />
-      <PopUp/>
     </div>
   );
 }
