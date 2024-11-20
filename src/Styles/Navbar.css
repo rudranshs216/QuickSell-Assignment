@@ -1,0 +1,20 @@
+.Navbar{
+    width: 100%;
+    height: 60px;
+    padding: 0 60px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+.Display{
+    padding: 3px 10px;
+    border: 2px solid whitesmoke; 
+    border-radius: 5px;
+}
+.Display > p{
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}

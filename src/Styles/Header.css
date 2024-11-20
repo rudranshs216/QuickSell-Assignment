@@ -1,0 +1,12 @@
+.header{
+    padding: 0 5px 30px 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 310px;
+}
+.headerLeft, .headerRight{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
