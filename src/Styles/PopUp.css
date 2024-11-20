@@ -1,0 +1,63 @@
+/* .App {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    max-width: 600px;
+    margin: auto;
+  } */
+  
+  .controls {
+    display: flex;
+    width: 200px;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    border-radius: 8px;
+    border: 2px solid whitesmoke;
+    background-color: #f4f6fa;
+  }
+  
+  .control {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* gap: 5px; */
+  }
+  
+  .control label {
+    /* font-weight: bold; */
+    color: #9A999C;
+  }
+  .control > select {
+    cursor: pointer;
+    width: 100px;
+    border: 2px solid whitesmoke;
+    outline: none;
+    padding: 3px 5px;
+    border-radius: 5px;
+    font-family: "Roboto", sans-serif;
+  }
+  option{
+    font-family: "Roboto", sans-serif;
+  }
+  
+  .group {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .group h3 {
+    margin-top: 0;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  li {
+    margin: 5px 0;
+  }
+  
