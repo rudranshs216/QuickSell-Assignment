@@ -90,6 +90,23 @@ const groupByUsers = (tickets) => {
   const groupedByUsers = groupByUsers(ticket);
   
   console.log(groupedByUsers);
+  const sortGroupedTicketsByPriority = (groupedTickets) => {
+    return groupedTickets.map((group) =>
+      group.sort((a, b) => b.priority - a.priority) // Sort in descending order
+    );
+  };
+  const sortedGroupedByUsers = sortGroupedTicketsByPriority(groupedByUsers);
+  
+  console.log(sortedGroupedByUsers);
+
+  // Sort each grouped array by title alphabetically
+const sortGroupedTicketsByTitle = (groupedTickets) => {
+    return groupedTickets.map((group) =>
+      group.sort((a, b) => a.title.localeCompare(b.title)) // Sort alphabetically by title
+    );
+  };
+  const sortedGroupedByTitle = sortGroupedTicketsByTitle(groupedByUsers);
+  console.log(sortedGroupedByTitle);
   return (
     <div className='hero'>
         {groupedTickets.map((ticketArray) => {
