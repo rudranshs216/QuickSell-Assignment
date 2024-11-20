@@ -1,13 +1,13 @@
 import Hero from "./Components/Hero";
 import Navbar from "./Components/Navbar";
-import PopUp from "./Components/PopUp";
+import { DataProvider } from "./context/dataContext";
 
 function App() {
   return (
-    <div>
-      <Navbar />
+    <DataProvider> 
+      <Navbar /> 
       <Hero />
-    </div>
+    </DataProvider>
   );
 }
 

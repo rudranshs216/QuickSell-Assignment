@@ -1,119 +1,75 @@
-import React, { useEffect, useState } from 'react'
-import '../Styles/Hero.css'
-import Ticket from './Ticket'
-import axios from 'axios'
+import React, { useEffect, useState } from "react";
+import "../Styles/Hero.css";
+import Ticket from "./Ticket";
+import axios from "axios";
+import { useData } from "../context/dataContext";
+import {
+  getUserMapping,
+  groupByPriority,
+  groupByStatus,
+  groupByUsers,
+  sortGroupedTicketsByPriority,
+  sortGroupedTicketsByTitle,
+} from "../Utilities/util";
 
-export default function Hero () {
-  const [ticket, setTicket] = useState([])
-  let config = {
-    method: 'get',
-    maxBodyLength: Infinity,
-    url: 'https://api.quicksell.co/v1/internal/frontend-assignment',
-    headers: {}
-  }
+export default function Hero() {
+  const { groupByKey, orderByKey } = useData();
+  const [ticket, setTicket] = useState([]);
+  const [users, setUsers] = useState([]);
+
   useEffect(() => {
-    axios
-      .request(config)
-      .then(response => {
-        console.log(JSON.stringify(response?.data.tickets))
-        setTicket(response.data.tickets)
-      })
-      .catch(error => {
-        console.log(error)
-      })
-  }, [])
-
-  const groupByPriority = tickets => {
-    const grouped = []
-    tickets.map(ticket => {
-      const priority = ticket.priority
-
-      // Ensure the index for the current priority exists
-      if (!grouped[priority]) {
-        grouped[priority] = []
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "https://api.quicksell.co/v1/internal/frontend-assignment"
+        );
+        setTicket(response.data.tickets);
+        setUsers(response.data.users);
+      } catch (error) {
+        console.error(error);
       }
+    };
 
-      // Push the ticket to the corresponding priority group
-      grouped[priority].push(ticket)
-    })
+    fetchData();
+  }, []);
 
-    return grouped
-  }
+  const userMapping = getUserMapping(users);
 
-  var groupedTickets = groupByPriority(ticket)
-  console.log(groupedTickets)
-  // Group tickets by their status
-  const groupByStatus = tickets => {
-    // Create a map to store tickets grouped by status
-    const statusMap = {}
+  const manageGrouping = () => {
+    switch (groupByKey) {
+      case "priority":
+        return groupByPriority(ticket);
+      case "userId":
+        return groupByUsers(ticket);
+      default:
+        return groupByStatus(ticket);
+    }
+  };
 
-    // Iterate through each ticket
-    tickets.forEach(ticket => {
-      const { status } = ticket
+  const manageOrdering = (data) => {
+    switch (orderByKey) {
+      case "title":
+        return sortGroupedTicketsByTitle(data);
+      default:
+        return sortGroupedTicketsByPriority(data);
+    }
+  };
 
-      // Initialize the array if the status key doesn't exist
-      if (!statusMap[status]) {
-        statusMap[status] = []
-      }
+  const display = () => manageOrdering(manageGrouping());
 
-      // Add the ticket to the corresponding status group
-      statusMap[status].push(ticket)
-    })
-
-    // Convert the map values to an array of arrays
-    return Object.values(statusMap)
-  }
-
-  groupedTickets = groupByStatus(ticket)
-
-  console.log(groupedTickets)
-  // Group tickets by their assigned userId
-  const groupByUsers = tickets => {
-    // Create a map to store tickets grouped by userId
-    const userMap = {}
-
-    // Iterate through each ticket
-    tickets.forEach(ticket => {
-      const { userId } = ticket
-
-      // Initialize the array if the userId key doesn't exist
-      if (!userMap[userId]) {
-        userMap[userId] = []
-      }
-
-      // Add the ticket to the corresponding user group
-      userMap[userId].push(ticket)
-    })
-
-    // Convert the map values to an array of arrays
-    return Object.values(userMap)
-  }
-
-  const groupedByUsers = groupByUsers(ticket)
-
-  console.log(groupedByUsers)
-  const sortGroupedTicketsByPriority = groupedTickets => {
-    return groupedTickets.map(
-      group => group.sort((a, b) => b.priority - a.priority) // Sort in descending order
-    )
-  }
-  const sortedGroupedByUsers = sortGroupedTicketsByPriority(groupedByUsers)
-
-  console.log(sortedGroupedByUsers)
-
-  // Sort each grouped array by title alphabetically
-  const sortGroupedTicketsByTitle = groupedTickets => {
-    return groupedTickets.map(
-      group => group.sort((a, b) => a.title.localeCompare(b.title)) // Sort alphabetically by title
-    )
-  }
-  const sortedGroupedByTitle = sortGroupedTicketsByTitle(groupedByUsers)
-  console.log(sortedGroupedByTitle)
   return (
-    <div className='hero'>
-      {groupedTickets.map(ticketArray => {
-        return <Ticket key={ticketArray[0].id} ticketArray={ticketArray} />
-      })}
+    <div className="hero">
+      {ticket.length === 0 ? (
+        <p>Loading...</p>
+      ) : (
+        display().map((ticketArray) => (
+          <Ticket
+            key={ticketArray[0]?.id}
+            ticketArray={ticketArray}
+            users={userMapping}
+          />
+        ))
+      )}
     </div>
-  )
+  );
 }

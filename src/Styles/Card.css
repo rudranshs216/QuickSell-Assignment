@@ -47,12 +47,16 @@
   
   .priority-icon {
     font-size: 20px;
-    color: #f44336; /* Red color */
+    padding: 2px;
+    border-radius: 4px;
+    border: 2px solid rgb(237, 237, 237);
   }
   
   .feature-request {
     font-size: 12px;
-    background-color: #f1f1f1;
+    border: 2px solid rgb(237, 237, 237);
+    /* background-color: #f1f1f1; */
+    margin-top: 4px;
     padding: 4px 8px;
     border-radius: 4px;
   }

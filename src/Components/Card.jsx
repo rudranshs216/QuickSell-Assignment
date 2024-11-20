@@ -3,7 +3,7 @@ import "../Styles/Card.css";
 import LowPriority from '../icons/Img - Low Priority.svg';
 import MediumPriority from '../icons/Img - Medium Priority.svg';
 import HighPriority from '../icons/Img - High Priority.svg';
-import UrgentPriority from '../icons/SVG - Urgent Priority grey.svg';
+import UrgentPriority from '../icons/SVG - Urgent Priority colour.svg';
 import NoPriority from '../icons/No-priority.svg';
 
 const Card = ({title, id, status, priority}) => {
@@ -35,7 +35,7 @@ const Card = ({title, id, status, priority}) => {
         <div className="card-priority">
           {/* <span className="priority-icon">{priority}</span> */}
           <img className="priority-icon" src={priorityMap[priority]} alt="" />
-          <span className="feature-request">{cutString(title,20)}</span>
+          <span className="feature-request">{cutString(title,40)}</span>
         </div>
       </div>
     </div>
