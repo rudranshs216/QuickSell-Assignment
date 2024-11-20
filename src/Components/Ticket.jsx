@@ -7,10 +7,10 @@ import '../Styles/Ticket.css'
 export default function Ticket({ticketArray}) {
   return (
     <div>
-        <Header />
+        <Header tickets = {ticketArray}/>
         <div className='cards'>
         {ticketArray.map((ticket) =>{
-            return <Card key={ticket.id} title={ticket.title}/>
+            return <Card key={ticket.id} id={ticket.id} title={ticket.title} status={ticket.status} priority={ticket.priority}/>
         })}
         </div>
         {/* <Card /> */}

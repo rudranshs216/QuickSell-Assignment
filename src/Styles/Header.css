@@ -7,6 +7,10 @@
 }
 .headerLeft, .headerRight{
     display: flex;
-    align-items: center;
+    align-items: baseline;
     gap: 10px;
 }
+.headerLeft > .count{
+   color: #9A999C;
+   font-size: 12px;
+} 
