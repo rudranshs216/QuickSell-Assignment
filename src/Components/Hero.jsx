@@ -23,6 +23,8 @@ export default function Hero() {
         const response = await axios.get(
           "https://api.quicksell.co/v1/internal/frontend-assignment"
         );
+        console.log(response.data);
+
         setTicket(response.data.tickets);
         setUsers(response.data.users);
       } catch (error) {
@@ -62,7 +64,7 @@ export default function Hero() {
       {ticket.length === 0 ? (
         <p>Loading...</p>
       ) : (
-        display().map((ticketArray) => (
+        display()?.map((ticketArray) => (
           <Ticket
             key={ticketArray[0]?.id}
             ticketArray={ticketArray}
