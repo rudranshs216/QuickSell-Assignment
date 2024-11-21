@@ -12,13 +12,20 @@ export default function Header({tickets, users}) {
     function getHeader(tickets) {
         switch (groupByKey) {
           case "priority":
-            return tickets[0].priority;
+            return priorityMap[tickets[0].priority];
           case "userId":
             return users[tickets[0].userId][0].name;
           default:
             return tickets[0].status;
         }
       }
+      const priorityMap = {
+        4: "Urgent Priority",
+        3: "High Priority",
+        2: "Medium Priority",
+        1: "Low Priority",
+        0: "No Priority"
+      };
     console.log(users[tickets[0].userId][0].name);
     var title = getHeader(tickets);
     const mapping = {
